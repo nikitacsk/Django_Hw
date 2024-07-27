@@ -1,0 +1,39 @@
+from myapp.models import Comment
+>>> Comment.objects.create(author_name = 'name', content = 'Start oaifbnaof hoh aoh faf')
+>>> Comment.objects.create(author_name = 'Mike', content = 'Stsdasart oaifbnfasfacof hoh aoh faf')
+>>> Comment.objects.create(author_name = 'Steve', content = 'Stsdasart oaifbnfa Middle sfacof hoh aoh faf')
+>>> Comment.objects.create(author_name = 'name', content = 'Start oaifbnaof hoh aoh faf')
+<Comment: Comment by name text is Start oaifbnaof hoh aoh faf>
+>>> Comment.objects.create(author_name = 'Nikita', content = 'soaifbnaof hoh aoh faf Finish')
+<Comment: Comment by Nikita text is soaifbnaof hoh aoh faf Finish>
+>>> Comment.objects.all()
+<QuerySet [<Comment: Comment by name text is Start oaifbnaof hoh aoh faf>, <Comment: Comment by name text is Start oaifbnaof hoh aoh faf>, <Comment: Comment by Mike text is Stsdasart oaifbnfasfacof hoh aoh faf>, <Comment: Comment by Steve text is Stsdasart oaifbnfa Middle sfacof hoh aoh faf>, <Comment: Comment by name text is Start oaifbnaof hoh aoh faf>, <Comment: Comment by Nikita text is soaifbnaof hoh aoh faf Finish>]>
+>>> Comment.objects.all().order_by('-created_at')[:5]
+<QuerySet [<Comment: Comment by Nikita text is soaifbnaof hoh aoh faf Finish>, <Comment: Comment by name text is Start oaifbnaof hoh aoh faf>, <Comment: Comment by Steve text is Stsdasart oaifbnfa Middle sfacof hoh aoh faf>, <Comment: Comment by Mike text is Stsdasart oaifbnfasfacof hoh aoh faf>, <Comment: Comment by name text is Start oaifbnaof hoh aoh faf>]>
+>>> Comment.objects.all().order_by('-created_at').values_list('content', flat=True)[:5]
+<QuerySet ['soaifbnaof hoh aoh faf Finish', 'Start oaifbnaof hoh aoh faf', 'Stsdasart oaifbnfa Middle sfacof hoh aoh faf', 'Stsdasart oaifbnfasfacof hoh aoh faf', 'Start oaifbnaof hoh aoh faf']>
+>>> comments_start = Comment.objects.filter(content__startswith='Start')
+>>> comments_middle = Comment.objects.filter(content__icontains='Middle')
+>>> comments_finish = Comment.objects.filter(content__endswith='Finish')
+
+>>> for comment in comments_start:
+...     comment.content = 'Changed content starting with Start'
+...     comment.save()
+...
+>>> for comment in comments_middle:
+...     comment.content = 'Changed content containing Middle'
+...     comment.save()
+...
+>>> for comment in comments_finish:
+...     comment.content = 'Changed content ending with Finish'
+...     comment.save()
+...
+>>> Comment.objects.all()
+<QuerySet [<Comment: Comment by name text is Changed content starting with Start>, <Comment: Comment by name text is Changed content starting with Start>, <Comment: Comment by Mike text is Stsdasart oaifbnfasfacof hoh aoh faf>, <Comment: Comment by Steve text is Changed content containing Middle>, <Comment: Comment by name text is Changed content starting with Start>, <Comment: Comment by Nikita text is Changed content ending with Finish>]>
+>>> Comment.objects.filter(content__icontains='k').exclude(content__icontains='c').delete()
+(0, {})
+>>> from myapp.models import Article
+>>> latest_author = Article.objects.latest('author_name')
+>>> latest_author_articles = Article.objects.filter(author_name=latest_author.author_name)
+>>> first_two_comments = Comment.objects.filter(article__in=latest_author_articles).order_by('created_at')[:2]
+None
