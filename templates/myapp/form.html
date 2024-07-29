@@ -1,0 +1,9 @@
+{% extends 'myapp/base.html' %}
+
+{% block body %}
+<form method="post" action="{% url 'form-view' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Send form</button>
+</form>
+{% endblock %}
