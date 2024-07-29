@@ -1,14 +1,14 @@
 from django.urls import path, re_path
 from . import views
-from myapp.views import index, acricles, acrticles_archive, users, article, article_slug, users_id
+from myapp.views import index, articles, articles_archive, users, article, article_slug, users_id
 
 
 phone_regex = r'^0(39|50|63|66|67|68|91|92|93|94|95|96|97|98|99)\d{7}$'
 
 urlpatterns = [
     path('', index, name='idx'),
-    path('acricles/', acricles),
-    path('acrticles/archive/', acrticles_archive),
+    path('articles/', articles),
+    path('articles/archive/', articles_archive),
     path('users/', users),
     path('article/<int:article_number>', article, name='number'),
     path('article/<int:article_number>/archive', article_slug),

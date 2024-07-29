@@ -27,13 +27,13 @@ def my_url(request):
     return render(request, 'myapp/static.html', data)
 
 
-def acricles(request):
-    data = {'text': 'acricles'}
+def articles(request):
+    data = {'text': 'articles'}
     return render(request, 'myapp/static.html', data)
 
 
-def acrticles_archive(request):
-    data = {'text': 'acrticles_archive'}
+def articles_archive(request):
+    data = {'text': 'articles_archive'}
     return render(request, 'myapp/static.html', data)
 
 
@@ -45,7 +45,7 @@ def users(request):
 def article(request, article_number):
     data = {
         'article_number': article_number,
-        'bool': article_number % 2
+        'is_odd': article_number % 2
             }
     return render(
         request,
@@ -68,8 +68,8 @@ def users_id(request, user_number):
 
 
 def phone_function(request, phone_number):
-    return HttpResponse(f"Ваш номер телефону: {phone_number}")
+    return HttpResponse(f"Your phone number: {phone_number}")
 
 
 def custom_view(request, year):
-    return HttpResponse(f"Ваш параметр: {year}")
+    return HttpResponse(f"Your year: {year}")

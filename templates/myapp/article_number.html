@@ -1,10 +1,10 @@
 {% extends "myapp/base.html" %}
 {% block body %}
 <div>
-    {% if bool %}
-        Число непарне
+    {% if is_odd %}
+        Number is odd
     {% else %}
-        Число парне
+        Number is even
     {% endif %}
 </div>
 {% endblock %}
