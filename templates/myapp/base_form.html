@@ -1,0 +1,26 @@
+{% extends 'myapp/base.html' %}
+
+{% block body %}
+  <form method="post">
+    {% csrf_token %}
+
+    {% for field in form %}
+      <div class="fieldWrapper">
+        {% if field.errors %}
+          <h4 style="color: red">
+            {{ field.errors }}
+          </h4>
+        {% endif %}
+
+        {{ field.label_tag }}
+        {{ field }}
+
+        {% if field.help_text %}
+          <p style="color: grey" class="help">{{ field.help_text|safe }}</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <button type="submit">Send form</button>
+  </form>
+{% endblock %}

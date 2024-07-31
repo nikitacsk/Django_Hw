@@ -5,6 +5,17 @@
     <title>Home Work</title>
 </head>
 <body>
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'logout-url' %}">
+        {% csrf_token %}
+        <button type="submit">logout</button>
+        </form>
+    {% else %}
+         <form method="post" action="{% url 'login-url' %}">
+        {% csrf_token %}
+        <button type="submit">login</button>
+        </form>
+    {% endif %}
     {%  block body %}
     {% endblock %}
 </body>
